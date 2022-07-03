@@ -5,7 +5,7 @@ from app.models.model import User, InUser, OutUser
 from app.models.response import Response, STATUS
 from app.services import jwt
 from app.repository import user_repo
-from app.db.db import get_database, AsyncIOMotorClient
+from app.db.init_db import get_database, AsyncIOMotorClient
 from datetime import timedelta
 from app.core.config import ACCESS_TOKEN_EXPIRE_MINUTES
 from app.services.jwt import create_access_token, get_current_user_authorizer

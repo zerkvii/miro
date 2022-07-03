@@ -8,7 +8,7 @@ from starlette.exceptions import HTTPException
 from starlette.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 
 from app.repository.user_repo import get_user
-from app.db.db import AsyncIOMotorClient, get_database
+from app.db.init_db import AsyncIOMotorClient, get_database
 from app.models.model import TokenPayload, OutUser
 from app.models.model import User
 

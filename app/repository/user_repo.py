@@ -1,4 +1,4 @@
-from app.db.db import AsyncIOMotorClient
+from app.db.init_db import AsyncIOMotorClient
 from app.core.config import database_name, users_collection_name,user_menus_collection_name
 from app.models.model import OutUser, MenuItem
 

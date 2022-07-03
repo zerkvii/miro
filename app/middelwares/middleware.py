@@ -1,7 +1,5 @@
-import imp
-from re import I
 from fastapi import Request
-from app.main import app
+from main import app
 import time
 
 
