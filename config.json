@@ -1,0 +1,23 @@
+{
+  "PROJECT_NAME": "miro project",
+  "API_V1_STR": "/api/v1/",
+  "SERVER_NAME": "miro",
+  "SERVER_HOST": "http://localhost:3000",
+  "SECRET_KEY": "undefined",
+  "FIRST_SUPERUSER": "zerkvii@gmail.com",
+  "FIRST_SUPERUSER_NAME": "zee",
+  "FIRST_SUPERUSER_PASSWORD": "123456",
+  "BACKEND_CORS_ORIGINS": [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:8080",
+    "https://localhost",
+    "https://localhost:3000",
+    "https://localhost:8080"
+  ],
+  "MYSQL_DB": "miro",
+  "MYSQL_USER": "root",
+  "MYSQL_SERVER": "localhost",
+  "MYSQL_PASSWORD": "!Whu123456",
+  "ACCESS_TOKEN_EXPIRE_MINUTES": "60"
+}

@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Depends, status
 
 # from app.depends import get_token_header
-from app.models.model import User, InUser, OutUser
-from app.models.response import Response, STATUS
-from app.services import jwt
+from app.schemas.model import InUser, OutUser
+from app.schemas.response import Response, STATUS
 from app.repository import user_repo
 from app.db.init_db import get_database, AsyncIOMotorClient
 from datetime import timedelta

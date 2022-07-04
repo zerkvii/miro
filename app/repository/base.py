@@ -19,7 +19,7 @@ class RepoBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         **Parameters**
 
         * `model`: A SQLAlchemy model class
-        * `schema`: A Pydantic model (schema) class
+        * `schemas`: A Pydantic model (schemas) class
         """
         self.model = model
 
