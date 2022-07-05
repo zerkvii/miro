@@ -1,5 +1,6 @@
 import json
 import secrets
+from datetime import timedelta
 from typing import Any, Dict, List, Optional, Union, Tuple, Callable
 
 from pydantic import AnyHttpUrl, BaseSettings, EmailStr, HttpUrl, validator, AnyUrl
@@ -25,7 +26,7 @@ class Settings(BaseSettings):
     API_V1_STR: str
     SECRET_KEY: str
     # 60 minutes * 24 hours * 8 days = 8 days
-    ACCESS_TOKEN_EXPIRE_MINUTES: int
+    ACCESS_TOKEN_EXPIRE_MINUTES: timedelta = timedelta(days=8)
     SERVER_NAME: str
     SERVER_HOST: AnyHttpUrl
     # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins

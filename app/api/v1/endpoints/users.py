@@ -1,46 +1,46 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
-# from app.depends import get_token_header
-from app.schemas.model import InUser, OutUser
+from app import repository, models
+from app.api import deps
+from app.core import security
+from app.schemas import OutMenu
+from app.schemas.user import InUser, OutUser
 from app.schemas.response import Response, STATUS
-from app.repository import user_repo
-from app.db.init_db import get_database, AsyncIOMotorClient
-from datetime import timedelta
-from app.core.config import ACCESS_TOKEN_EXPIRE_MINUTES
-from app.services.jwt import create_access_token, get_current_user_authorizer
 
-router = APIRouter(
-    prefix='/users',
-    tags=['users'],
-    # dependencies=[Depends(get_token_header)],
-    responses={
-        status.HTTP_404_NOT_FOUND: {'description': 'Not Found'}
-    }
-)
-
-
-@router.get('/info')
-async def get_user_info(user: OutUser = Depends(get_current_user_authorizer())):
-    return Response(status=STATUS.SUCCESS, info='get info successful', data=user)
-
-
-@router.get('/menu')
-async def get_user_menu(user: OutUser = Depends(get_current_user_authorizer()),
-                        db: AsyncIOMotorClient = Depends(get_database)):
-    menus = await user_repo.get_user_menus(db, user.username)
-    return Response(status=STATUS.SUCCESS, info='get info successful', data=menus)
+router = APIRouter()
 
 
 @router.post('/auth')
-async def auth_user(user: InUser, db: AsyncIOMotorClient = Depends(get_database)):
-    # print(db)
-    db_user = await user_repo.get_user(db, user.username)
-    if db_user is None:
-        return Response(status=STATUS.BAD_REQUEST, info='user not found')
-    elif not db_user.check_password(user.password):
-        return Response(status=STATUS.BAD_REQUEST, info='pwd not correct')
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    token = create_access_token(
-        data={"username": db_user.username}, expires_delta=access_token_expires
+async def get_auth_token(in_user: InUser, db: Session = Depends(deps.get_db)):
+    # user = user_repo.get_by_email_or_username(db, email_or_username=in_user.username)
+    user = repository.user_repo.authenticate(db, username_or_email=in_user.username, password=in_user.password)
+    if not user:
+        return Response(status=STATUS.NOT_FOUND, info='User not found')
+    if not repository.user_repo.is_active(user):
+        return Response(status=STATUS.TOKEN_EXPIRE, info='User is not active')
+    token = security.create_access_token(
+        user.id
     )
-    return Response(status=STATUS.SUCCESS, info='get user successfully', data={'token': token})
+    return Response(status=STATUS.SUCCESS, info='get token: successful', data={'token': token})
+
+
+@router.get('/info')
+async def get_user_info(current_user: models.user = Depends(deps.get_current_user)):
+    return Response(status=STATUS.SUCCESS, info='get info successful', data=OutUser().from_user_model(current_user))
+
+
+@router.get('/menu')
+async def get_user_info(current_user: models.user = Depends(deps.get_current_user),
+                        db: Session = Depends(deps.get_db)):
+    menus = repository.menu_repo.get_by_user_id(db, user_id=current_user.id)
+    menu_list = []
+    for menu in menus:
+        if menu.children is not None:
+            sub_menu = repository.menu_repo.get_by_children_ids(db, children_ids=menu.children)
+            out_menu = OutMenu().from_menu_model(menu)
+            out_menu.children = sub_menu
+            menu_list.append(out_menu)
+        else:
+            menu_list.append(OutMenu().from_menu_model(menu))
+    return Response(status=STATUS.SUCCESS, info='get info successful', data=menu_list)

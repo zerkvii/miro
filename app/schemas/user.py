@@ -1,14 +1,58 @@
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr
-
+from datetime import datetime
 
 # Shared properties
+from app.models import User
+
+
 class UserBase(BaseModel):
     email: Optional[EmailStr] = None
     is_active: Optional[bool] = True
     is_superuser: bool = False
     username: Optional[str] = None
+    avatar: Optional[str] = None
+    phone: str = None
+    registrationDate: datetime = None
+    role: str = None
+
+    job: str = None
+    organization: str = None
+    location: str = None
+    introduction: str = None
+    personalWebsite: str = None
+    jobName: str = None
+    organizationName: str = None
+    locationName: str = None
+
+
+class InUser(BaseModel):
+    username: str = None
+    password: str = None
+
+
+class OutUser(UserBase):
+    def from_user_model(self, user: User):
+        self.username = user.username
+        self.email = EmailStr(user.email)
+        self.avatar = user.avatar
+        self.is_superuser = user.is_superuser
+        self.role = user.role
+        self.registrationDate = user.registrationDate
+        self.is_active = user.is_active
+
+        self.phone = user.phone
+        self.organizationName = user.organizationName
+        self.organization = user.organization
+        self.jobName = user.jobName
+        self.job = user.job
+        self.locationName = user.locationName
+        self.introduction = user.introduction
+        self.location = user.location
+        self.personalWebsite = user.personalWebsite
+
+        return self
 
 
 # Properties to receive via API on creation
