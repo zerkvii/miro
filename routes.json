@@ -1,0 +1,701 @@
+[
+  {
+    "path": "/dashboard/workplace",
+    "name": "Workplace",
+    "meta": {
+      "locale": "menu.dashboard.workplace",
+      "requiresAuth": true,
+      "roles": [
+        "*"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/dashboard/monitor",
+    "name": "Monitor",
+    "meta": {
+      "locale": "menu.dashboard.monitor",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/exception/403",
+    "name": "403",
+    "meta": {
+      "locale": "menu.exception.403",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/exception/404",
+    "name": "404",
+    "meta": {
+      "locale": "menu.exception.404",
+      "requiresAuth": true,
+      "roles": [
+        "*"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/exception/500",
+    "name": "500",
+    "meta": {
+      "locale": "menu.exception.500",
+      "requiresAuth": true,
+      "roles": [
+        "*"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/form/step",
+    "name": "Step",
+    "meta": {
+      "locale": "menu.form.step",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/form/group",
+    "name": "Group",
+    "meta": {
+      "locale": "menu.form.group",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/list/search-table",
+    "name": "SearchTable",
+    "meta": {
+      "locale": "menu.list.searchTable",
+      "requiresAuth": true,
+      "roles": [
+        "*"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/list/card",
+    "name": "Card",
+    "meta": {
+      "locale": "menu.list.cardList",
+      "requiresAuth": true,
+      "roles": [
+        "*"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/profile/basic",
+    "name": "Basic",
+    "meta": {
+      "locale": "menu.profile.basic",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/result/success",
+    "name": "Success",
+    "meta": {
+      "locale": "menu.result.success",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/result/error",
+    "name": "Error",
+    "meta": {
+      "locale": "menu.result.error",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/user/info",
+    "name": "Info",
+    "meta": {
+      "locale": "menu.user.info",
+      "requiresAuth": true,
+      "roles": [
+        "*"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/user/setting",
+    "name": "Setting",
+    "meta": {
+      "locale": "menu.user.setting",
+      "requiresAuth": true,
+      "roles": [
+        "*"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/visualization/data-analysis",
+    "name": "DataAnalysis",
+    "meta": {
+      "locale": "menu.visualization.dataAnalysis",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/visualization/multi-dimension-data-analysis",
+    "name": "MultiDimensionDataAnalysis",
+    "meta": {
+      "locale": "menu.visualization.multiDimensionDataAnalysis",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/",
+    "redirect": "auth",
+    "name": "index",
+    "meta": {},
+    "props": {},
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/auth",
+    "name": "auth",
+    "meta": {
+      "requiresAuth": false
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/dashboard",
+    "name": "dashboard",
+    "meta": {
+      "locale": "menu.dashboard",
+      "requiresAuth": true,
+      "icon": "icon-dashboard",
+      "order": 0
+    },
+    "props": {
+      "default": false
+    },
+    "children": [
+      {
+        "path": "workplace",
+        "name": "Workplace",
+        "meta": {
+          "locale": "menu.dashboard.workplace",
+          "requiresAuth": true,
+          "roles": [
+            "*"
+          ]
+        }
+      },
+      {
+        "path": "monitor",
+        "name": "Monitor",
+        "meta": {
+          "locale": "menu.dashboard.monitor",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    ],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/exception",
+    "name": "exception",
+    "meta": {
+      "locale": "menu.exception",
+      "requiresAuth": true,
+      "icon": "icon-exclamation-circle",
+      "order": 6
+    },
+    "props": {
+      "default": false
+    },
+    "children": [
+      {
+        "path": "403",
+        "name": "403",
+        "meta": {
+          "locale": "menu.exception.403",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      },
+      {
+        "path": "404",
+        "name": "404",
+        "meta": {
+          "locale": "menu.exception.404",
+          "requiresAuth": true,
+          "roles": [
+            "*"
+          ]
+        }
+      },
+      {
+        "path": "500",
+        "name": "500",
+        "meta": {
+          "locale": "menu.exception.500",
+          "requiresAuth": true,
+          "roles": [
+            "*"
+          ]
+        }
+      }
+    ],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/form",
+    "name": "form",
+    "meta": {
+      "locale": "menu.form",
+      "icon": "icon-settings",
+      "requiresAuth": true,
+      "order": 3
+    },
+    "props": {
+      "default": false
+    },
+    "children": [
+      {
+        "path": "step",
+        "name": "Step",
+        "meta": {
+          "locale": "menu.form.step",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      },
+      {
+        "path": "group",
+        "name": "Group",
+        "meta": {
+          "locale": "menu.form.group",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    ],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/list",
+    "name": "list",
+    "meta": {
+      "locale": "menu.list",
+      "requiresAuth": true,
+      "icon": "icon-list",
+      "order": 2
+    },
+    "props": {
+      "default": false
+    },
+    "children": [
+      {
+        "path": "search-table",
+        "name": "SearchTable",
+        "meta": {
+          "locale": "menu.list.searchTable",
+          "requiresAuth": true,
+          "roles": [
+            "*"
+          ]
+        }
+      },
+      {
+        "path": "card",
+        "name": "Card",
+        "meta": {
+          "locale": "menu.list.cardList",
+          "requiresAuth": true,
+          "roles": [
+            "*"
+          ]
+        }
+      }
+    ],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/profile",
+    "name": "profile",
+    "meta": {
+      "locale": "menu.profile",
+      "requiresAuth": true,
+      "icon": "icon-file",
+      "order": 4
+    },
+    "props": {
+      "default": false
+    },
+    "children": [
+      {
+        "path": "basic",
+        "name": "Basic",
+        "meta": {
+          "locale": "menu.profile.basic",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    ],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/result",
+    "name": "result",
+    "meta": {
+      "locale": "menu.result",
+      "icon": "icon-check-circle",
+      "requiresAuth": true,
+      "order": 5
+    },
+    "props": {
+      "default": false
+    },
+    "children": [
+      {
+        "path": "success",
+        "name": "Success",
+        "meta": {
+          "locale": "menu.result.success",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      },
+      {
+        "path": "error",
+        "name": "Error",
+        "meta": {
+          "locale": "menu.result.error",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    ],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/user",
+    "name": "user",
+    "meta": {
+      "locale": "menu.user",
+      "icon": "icon-user",
+      "requiresAuth": true,
+      "order": 7
+    },
+    "props": {
+      "default": false
+    },
+    "children": [
+      {
+        "path": "info",
+        "name": "Info",
+        "meta": {
+          "locale": "menu.user.info",
+          "requiresAuth": true,
+          "roles": [
+            "*"
+          ]
+        }
+      },
+      {
+        "path": "setting",
+        "name": "Setting",
+        "meta": {
+          "locale": "menu.user.setting",
+          "requiresAuth": true,
+          "roles": [
+            "*"
+          ]
+        }
+      }
+    ],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/visualization",
+    "name": "visualization",
+    "meta": {
+      "locale": "menu.visualization",
+      "requiresAuth": true,
+      "icon": "icon-apps",
+      "order": 1
+    },
+    "props": {
+      "default": false
+    },
+    "children": [
+      {
+        "path": "data-analysis",
+        "name": "DataAnalysis",
+        "meta": {
+          "locale": "menu.visualization.dataAnalysis",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      },
+      {
+        "path": "multi-dimension-data-analysis",
+        "name": "MultiDimensionDataAnalysis",
+        "meta": {
+          "locale": "menu.visualization.multiDimensionDataAnalysis",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    ],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/:pathMatch(.*)*",
+    "name": "notFound",
+    "meta": {},
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  }
+]

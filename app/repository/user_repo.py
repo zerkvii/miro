@@ -1,28 +1,25 @@
 from typing import Any, Dict, Optional, Union
 
-from fastapi import Depends
 from sqlalchemy.orm import Session
 
-from app.api import deps
-from app.api.deps import get_db
 from app.core.security import get_password_hash, verify_password
 from app.repository.base import RepoBase
-from app.models.user import User
+from app.models.user import UserModel
 from app.schemas.user import UserCreate, UserUpdate
 
 
-class UserRepo(RepoBase[User, UserCreate, UserUpdate]):
-    def get_by_email(self, db: Session, *, email: str) -> Optional[User]:
-        return db.query(User).filter(User.email == email).first()
+class UserRepo(RepoBase[UserModel, UserCreate, UserUpdate]):
+    def get_by_email(self, db: Session, *, email: str) -> Optional[UserModel]:
+        return db.query(UserModel).filter(UserModel.email == email).first()
 
-    def get_by_username_or_email(self, db: Session, *, username_or_email: str) -> Optional[User]:
+    def get_by_username_or_email(self, db: Session, *, username_or_email: str) -> Optional[UserModel]:
         # * is used to force to explicitly pass the email_or_username parameter
-        return db.query(User).filter(
-            (User.email == username_or_email) | (User.username == username_or_email)
+        return db.query(UserModel).filter(
+            (UserModel.email == username_or_email) | (UserModel.username == username_or_email)
         ).first()
 
-    def create(self, db: Session, *, obj_in: UserCreate) -> User:
-        db_obj = User(
+    def create(self, db: Session, *, obj_in: UserCreate) -> UserModel:
+        db_obj = UserModel(
             email=obj_in.email,
             hashed_password=get_password_hash(obj_in.password),
             username=obj_in.username,
@@ -34,8 +31,8 @@ class UserRepo(RepoBase[User, UserCreate, UserUpdate]):
         return db_obj
 
     def update(
-            self, db: Session, *, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
-    ) -> User:
+            self, db: Session, *, db_obj: UserModel, obj_in: Union[UserUpdate, Dict[str, Any]]
+    ) -> UserModel:
         if isinstance(obj_in, dict):
             update_data = obj_in
         else:
@@ -44,9 +41,9 @@ class UserRepo(RepoBase[User, UserCreate, UserUpdate]):
             hashed_password = get_password_hash(update_data["password"])
             del update_data["password"]
             update_data["hashed_password"] = hashed_password
-        return super().update(db_obj=db_obj, obj_in=update_data)
+        return super().update(db, db_obj=db_obj, obj_in=update_data)
 
-    def authenticate(self, db: Session, *, username_or_email: str, password: str) -> Optional[User]:
+    def authenticate(self, db: Session, *, username_or_email: str, password: str) -> Optional[UserModel]:
         query_user = self.get_by_username_or_email(db, username_or_email=username_or_email)
         if not query_user:
             return None
@@ -54,11 +51,11 @@ class UserRepo(RepoBase[User, UserCreate, UserUpdate]):
             return None
         return query_user
 
-    def is_active(self, cur_user: User) -> bool:
+    def is_active(self, cur_user: UserModel) -> bool:
         return cur_user.is_active
 
-    def is_superuser(self, cur_user: User) -> bool:
+    def is_superuser(self, cur_user: UserModel) -> bool:
         return cur_user.is_superuser
 
 
-user_repo = UserRepo(User)
+user_repo = UserRepo(UserModel)

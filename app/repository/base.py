@@ -1,11 +1,9 @@
 from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union
 
-from fastapi import Depends
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from app.api import deps
 from app.db.base_class import Base
 
 ModelType = TypeVar("ModelType", bound=Base)
@@ -25,8 +23,8 @@ class RepoBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         self.model = model
 
-    def get(self, db: Session, id: Any) -> Optional[ModelType]:
-        return db.query(self.model).filter(self.model.id == id).first()
+    def get(self, db: Session, item_id: Any) -> Optional[ModelType]:
+        return db.query(self.model).filter(self.model.id == item_id).first()
 
     def get_multi(
             self, db, *, skip: int = 0, limit: int = 100
@@ -61,8 +59,8 @@ class RepoBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db.refresh(db_obj)
         return db_obj
 
-    def remove(self, db: Session, *, id: int) -> ModelType:
-        obj = db.query(self.model).get(id)
+    def remove(self, db: Session, *, item_id: int) -> ModelType:
+        obj = db.query(self.model).get(item_id)
         db.delete(obj)
         db.commit()
         return obj

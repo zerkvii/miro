@@ -18,5 +18,6 @@
   "MYSQL_DB": "miro",
   "MYSQL_USER": "root",
   "MYSQL_SERVER": "localhost",
-  "MYSQL_PASSWORD": "!Whu123456"
+  "MYSQL_PASSWORD": "!Whu123456",
+  "ALLOW_SQL_ECHO": false
 }

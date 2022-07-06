@@ -11,7 +11,7 @@ from pydantic.env_settings import SettingsSourceCallable
 
 def json_config_settings_source(json_settings: BaseSettings) -> Dict[str, Any]:
     encoding = json_settings.__config__.env_file_encoding
-    ret=json.loads(Path('config.json').read_text(encoding=encoding))
+    ret = json.loads(Path('config.json').read_text(encoding=encoding))
     return ret
 
 
@@ -19,8 +19,10 @@ class Settings(BaseSettings):
     class Config:
         env_file_encoding = 'utf-8'
         case_sensitive = False
+
         @classmethod
-        def customise_sources(cls, init_settings, env_settings, file_secret_settings) -> Tuple[SettingsSourceCallable, ...]:
+        def customise_sources(cls, init_settings, env_settings, file_secret_settings) -> Tuple[
+            SettingsSourceCallable, ...]:
             return init_settings, json_config_settings_source, env_settings, file_secret_settings
 
     API_V1_STR: str
@@ -99,6 +101,7 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER: EmailStr
     FIRST_SUPERUSER_PASSWORD: str
     FIRST_SUPERUSER_NAME: str
+    ALLOW_SQL_ECHO: bool = False
 
     # USERS_OPEN_REGISTRATION: bool = False
 

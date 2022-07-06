@@ -1,19 +1,15 @@
 from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
 
-from app import repository, models
 from app.api import deps
-from app.core import security
-from app.schemas import OutMenu
+from app.models import UserModel
 from app.schemas.response import Response, STATUS
-from app.schemas.user import InUser, OutUser
 
 # content api
 router = APIRouter()
 
 
 @router.get('/week-data')
-async def get_week_data(current_user: models.user = Depends(deps.get_current_user)):
+async def get_week_data(current_user: UserModel = Depends(deps.get_current_user)):
     week_data = [
         {'x': '2022-07-01', 'y': 3},
         {'x': '2022-07-02', 'y': 5},
@@ -27,7 +23,7 @@ async def get_week_data(current_user: models.user = Depends(deps.get_current_use
 
 
 @router.get('/popular-list')
-async def get_week_data(queryType: str, current_user: models.user = Depends(deps.get_current_user)):
+async def get_week_data(queryType: str, current_user: UserModel = Depends(deps.get_current_user)):
     textList = [
         {
             'key': 1,
@@ -134,7 +130,7 @@ async def get_week_data(queryType: str, current_user: models.user = Depends(deps
 
 
 @router.get('/category-sum')
-async def get_category_sum(current_user: models.user = Depends(deps.get_current_user)):
+async def get_category_sum(current_user: UserModel = Depends(deps.get_current_user)):
     data = [
         {'name': '文本类', 'value': 102},
         {'name': '图片类', 'value': 144},
