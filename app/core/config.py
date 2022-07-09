@@ -3,7 +3,7 @@ import secrets
 from datetime import timedelta
 from typing import Any, Dict, List, Optional, Union, Tuple, Callable
 
-from pydantic import AnyHttpUrl, BaseSettings, EmailStr, HttpUrl, validator, AnyUrl
+from pydantic import AnyHttpUrl, BaseSettings, EmailStr, HttpUrl, validator, AnyUrl, BaseModel
 from pathlib import Path
 
 from pydantic.env_settings import SettingsSourceCallable
@@ -14,6 +14,36 @@ def json_config_settings_source(json_settings: BaseSettings) -> Dict[str, Any]:
     ret = json.loads(Path('config.json').read_text(encoding=encoding))
     return ret
 
+
+# class LogConfig(BaseModel):
+#     LOGGER_NAME: str = 'miro'
+#     LOG_FORMAT: str = "%(levelprefix)s | %(asctime)s | %(message)s"
+#     LOG_LEVEL: str = "DEBUG"
+#
+#     # Logging config
+#     version: int = 1
+#     disable_existing_loggers: bool = False
+#     formatters: Dict[str, Any] = {
+#         "default": {
+#             # "()": "uvicorn.logging.DefaultFormatter",
+#             "fmt": LOG_FORMAT,
+#             "datefmt": "%Y-%m-%d %H:%M:%S",
+#         },
+#     }
+#     handlers: Dict[str, Any] = {
+#         "default": {
+#             # "formatter": "default",
+#             "class": "logging.FileHandler",
+#             'filename': 'logs/miro.log',
+#             # 'mode': 'a',
+#             # 'maxBytes': 10 * 1024 * 1024,
+#             # 'backupCount': 10,
+#         }
+#     }
+#     loggers: Dict[str, Any] = {
+#         'miro': {"handlers": ["default"], "level": LOG_LEVEL},
+#     }
+#
 
 class Settings(BaseSettings):
     class Config:
@@ -26,6 +56,7 @@ class Settings(BaseSettings):
             return init_settings, json_config_settings_source, env_settings, file_secret_settings
 
     API_V1_STR: str
+    WS_API: str
     SECRET_KEY: str
     # 60 minutes * 24 hours * 8 days = 8 days
     ACCESS_TOKEN_EXPIRE_MINUTES: timedelta = timedelta(days=8)
@@ -71,39 +102,23 @@ class Settings(BaseSettings):
             path=f'/{values.get("MYSQL_DB") or ""}',
         )
 
-    # SMTP_TLS: bool = True
-    # SMTP_PORT: Optional[int] = None
-    # SMTP_HOST: Optional[str] = None
-    # SMTP_USER: Optional[str] = None
-    # SMTP_PASSWORD: Optional[str] = None
-    # EMAILS_FROM_EMAIL: Optional[EmailStr] = None
-    # EMAILS_FROM_NAME: Optional[str] = None
+    REDIS_URL: Optional[AnyUrl] = None
 
-    # @validator('EMAILS_FROM_NAME')
-    # def get_project_name(cls, v: Optional[str], values: Dict[str, Any]) -> str:
-    #     if not v:
-    #         return values['PROJECT_NAME']
-    #     return v
-
-    # EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 48
-    # EMAIL_TEMPLATES_DIR: str = '/app/app/email-templates/build'
-    # EMAILS_ENABLED: bool = False
-
-    # @validator('EMAILS_ENABLED', pre=True)
-    # def get_emails_enabled(cls, v: bool, values: Dict[str, Any]) -> bool:
-    #     return bool(
-    #         values.get('SMTP_HOST')
-    #         and values.get('SMTP_PORT')
-    #         and values.get('EMAILS_FROM_EMAIL')
-    #     )
-
-    # EMAIL_TEST_USER: EmailStr = 'test@example.com'  # type: ignore
     FIRST_SUPERUSER: EmailStr
     FIRST_SUPERUSER_PASSWORD: str
     FIRST_SUPERUSER_NAME: str
     ALLOW_SQL_ECHO: bool = False
 
+    # LOG_CONF: LogConfig = LogConfig()
     # USERS_OPEN_REGISTRATION: bool = False
+    LOG_FILE: str = None
+    LOG_FILE_FORMAT: str = "<green>{time}</green> - {level} - {message}"
+    LOG_LEVEL: str = "DEBUG"
+    LOG_FILE_COMPRESSION: str = 'tar.gz'
+    LOG_FILE_ROTATION = '100 MB'
+    # ACTIVE_USERS: str = 'active_users'
+    ACTIVE_USERS_INFO: str = 'active_users_info'
+    CHAT_HISTORY_KEY: str = 'chat_history'
 
 
 settings = Settings()

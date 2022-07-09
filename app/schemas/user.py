@@ -2,20 +2,20 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
+
+
 # Shared properties
-from app.models import UserModel
-from app.models.user import ROLE
 
 
 class UserBase(BaseModel):
     email: Optional[EmailStr] = None
-    is_active: Optional[bool] = True
-    is_superuser: bool = False
+    # is_active: Optional[bool] = True
+    # is_superuser: bool = False
     username: Optional[str] = None
     avatar: Optional[str] = None
     phone: str = None
     registrationDate: datetime = None
-    role: ROLE = None
+    role: str = None
 
     job: str = None
     organization: str = None
@@ -88,3 +88,7 @@ class User(UserInDBBase):
 # Additional properties stored in DB
 class UserInDB(UserInDBBase):
     hashed_password: str
+
+
+class UserInRedis(UserBase):
+    pass

@@ -1,6 +1,7 @@
 {
   "PROJECT_NAME": "miro project",
   "API_V1_STR": "/apis/v1",
+  "WS_API": "/ws-apis/v1",
   "SERVER_NAME": "miro",
   "SERVER_HOST": "http://localhost:3000",
   "SECRET_KEY": "undefined",
@@ -19,5 +20,7 @@
   "MYSQL_USER": "root",
   "MYSQL_SERVER": "localhost",
   "MYSQL_PASSWORD": "!Whu123456",
-  "ALLOW_SQL_ECHO": false
+  "ALLOW_SQL_ECHO": false,
+  "REDIS_URL": "redis://localhost:6379",
+  "LOG_FILE": "logs/miro.log"
 }

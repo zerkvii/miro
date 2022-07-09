@@ -29,7 +29,7 @@ class UserMenuOut(UserMenuBase):
     name: str = None
     path: str = None
     meta: str = None
-    children: List[UserMenuOut] = None
+    children: List[UserMenuOut] = []
 
     def parse_dict(self, item: Dict[str, Any]):
         self.id = item['id']
@@ -37,6 +37,11 @@ class UserMenuOut(UserMenuBase):
         self.path = item['path']
         self.children_ids = item['children_ids']
         self.meta = json.loads(item['meta'])
+        self.meta['order'] = item['menu_order']
+        if 'hideInMenu' not in self.meta:
+            self.meta['hideInMenu'] = False
+        if 'hideChildrenInMenu' not in self.meta:
+            self.meta['hideChildrenInMenu'] = False
         self.level = item['level']
         self.menu_order = item['menu_order']
         return self

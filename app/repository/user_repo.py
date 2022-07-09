@@ -1,11 +1,15 @@
+import json
 from typing import Any, Dict, Optional, Union
 
+from redis.client import Redis
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.core.security import get_password_hash, verify_password
+from app.redis.redis_base import lpush_key, hset_key, lrange_key, hexists, hget_key
 from app.repository.base import RepoBase
 from app.models.user import UserModel
-from app.schemas.user import UserCreate, UserUpdate
+from app.schemas.user import UserCreate, UserUpdate, UserInRedis
 
 
 class UserRepo(RepoBase[UserModel, UserCreate, UserUpdate]):
@@ -23,7 +27,6 @@ class UserRepo(RepoBase[UserModel, UserCreate, UserUpdate]):
             email=obj_in.email,
             hashed_password=get_password_hash(obj_in.password),
             username=obj_in.username,
-            is_superuser=obj_in.is_superuser,
         )
         db.add(db_obj)
         db.commit()
@@ -43,19 +46,27 @@ class UserRepo(RepoBase[UserModel, UserCreate, UserUpdate]):
             update_data["hashed_password"] = hashed_password
         return super().update(db, db_obj=db_obj, obj_in=update_data)
 
-    def authenticate(self, db: Session, *, username_or_email: str, password: str) -> Optional[UserModel]:
+    def authenticate(self, db: Session, con: Redis, *, username_or_email: str, password: str) -> Optional[UserModel]:
         query_user = self.get_by_username_or_email(db, username_or_email=username_or_email)
         if not query_user:
             return None
         if not verify_password(password, query_user.hashed_password):
             return None
+        hset_key(con, settings.ACTIVE_USERS_INFO, str(query_user.id),
+                 json.dumps(query_user.as_dict(), default=str))
         return query_user
 
-    def is_active(self, cur_user: UserModel) -> bool:
-        return cur_user.is_active
+    def get_active_user(self, con: Redis, user_id: int):
+        user_dict = json.loads(hget_key(con, settings.ACTIVE_USERS_INFO, str(user_id)))
+        return UserModel(**user_dict)
 
-    def is_superuser(self, cur_user: UserModel) -> bool:
-        return cur_user.is_superuser
+    def is_active(self, con: Redis, cur_user: UserModel) -> bool:
+        return hexists(con, settings.ACTIVE_USERS_INFO, str(cur_user.id))
+        # active_users=lrange_key(con, settings.ACTIVE_USERS,0,-1)
+
+    # def is_superuser(self, cur_user: UserModel) -> bool:
+    #
+    #     return cur_user.is_superuser
 
 
 user_repo = UserRepo(UserModel)

@@ -11,7 +11,8 @@ from app.schemas import UserMenuUpdate, UserMenuCreate
 class UserMenuRepo(RepoBase[UserMenuModel, UserMenuCreate, UserMenuUpdate]):
     def get_by_user_id(self, db: Session, user_id: int) -> List[Dict[str, Any]]:
         query_string = text(
-            'select m.name,m.path,m.meta,um.id,um.children_ids,um.level,um.menu_order from user_menu um left join menu m on um.menu_id = m.id where um.user_id=:user_id')
+            'select m.name,m.path,m.meta,um.id,um.children_ids,um.level,um.menu_order from user_menu um left join '
+            'menu m on um.menu_id = m.id where um.user_id=:user_id')
         return db.execute(query_string, {'user_id': user_id}).mappings().all()
 
     def update(self, db: Session, *, db_obj: UserMenuModel, obj_in: Union[UserMenuUpdate, Dict[str, Any]]):
