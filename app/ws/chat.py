@@ -61,51 +61,17 @@ class ConnectionManager:
     async def send_history_chat(self, webSocketClient):
         redis_conn = next(get_redis_conn())
         history = lrange_key(redis_conn, settings.CHAT_HISTORY_KEY, '0', '-1')
-        print(history)
         chat_history = [json.loads(e) for e in history]
         await webSocketClient.send_json({'msg_type': '30000', 'data': chat_history, 'info': 'get history successful'})
 
+    async def update_history(self):
+        print(len(self.active_connections))
+        for connection in self.active_connections:
+            print(connection)
+            await self.send_history_chat(connection)
+
 
 manager = ConnectionManager()
-
-html = """
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Chat</title>
-    </head>
-    <body>
-        <h1>WebSocket Chat</h1>
-        <form action="" onsubmit="sendMessage(event)">
-            <input type="text" id="messageText" autocomplete="off"/>
-            <button>Send</button>
-        </form>
-        <ul id='messages'>
-        </ul>
-        <script>
-            var ws = new WebSocket("ws://localhost:8000/ws-apis/chat");
-            ws.onmessage = function(event) {
-                var messages = document.getElementById('messages')
-                var message = document.createElement('li')
-                var content = document.createTextNode(event.data)
-                message.appendChild(content)
-                messages.appendChild(message)
-            };
-            function sendMessage(event) {
-                var input = document.getElementById("messageText")
-                ws.send(input.value)
-                input.value = ''
-                event.preventDefault()
-            }
-        </script>
-    </body>
-</html>
-"""
-
-
-@app.get("/ws-apis/index")
-async def get():
-    return HTMLResponse(html)
 
 
 @app.websocket('/ws-apis/chat')
@@ -117,7 +83,6 @@ async def chat(webSocket: WebSocket, con: Redis = Depends(get_redis_conn)):
     try:
         while True:
             data = await webSocketClient.receive_json()
-            print(data['msg_type'])
             if 'msg_type' in data and data['msg_type'] == 20000:
                 # webSocketClient.set_name(data['name'])
                 if 'x-token' in data:
@@ -127,9 +92,11 @@ async def chat(webSocket: WebSocket, con: Redis = Depends(get_redis_conn)):
                         data['username'] = current_user.username
                         data.pop('x-token')
                         rpush_key(con, settings.CHAT_HISTORY_KEY, [json.dumps(data)])
-                        await manager.send_history_chat(webSocketClient)
+                        print('start update')
+                        await manager.update_history()
+
                     else:
-                        logger.error('User not found')
+                        logger.error('User not found', data)
 
     except WebSocketDisconnect:
         manager.disconnect(webSocketClient)
