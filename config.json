@@ -22,5 +22,7 @@
   "MYSQL_PASSWORD": "!Whu123456",
   "ALLOW_SQL_ECHO": false,
   "REDIS_URL": "redis://localhost:6379",
-  "LOG_FILE": "logs/miro.log"
+  "LOG_FILE": "logs/miro.log",
+  "QINIU_SECRET_KEY": "NqSl1uPsqW1SdjYEaFvJuTa3Whi1EJh52bzLPoew",
+  "QINIU_ACCESS_KEY": "WET5-4dzKlda-xgUTGNuewa0PG2KEGq9FmfOtlZJ"
 }

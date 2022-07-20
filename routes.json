@@ -100,6 +100,46 @@
     "components": {}
   },
   {
+    "path": "/file/music",
+    "name": "Music",
+    "meta": {
+      "locale": "menu.file.music",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/file/pic",
+    "name": "Pic",
+    "meta": {
+      "locale": "menu.file.pic",
+      "requiresAuth": true,
+      "roles": [
+        "admin"
+      ]
+    },
+    "props": {
+      "default": false
+    },
+    "children": [],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
     "path": "/form/step",
     "name": "Step",
     "meta": {
@@ -433,6 +473,48 @@
           "requiresAuth": true,
           "roles": [
             "*"
+          ]
+        }
+      }
+    ],
+    "instances": {},
+    "leaveGuards": {},
+    "updateGuards": {},
+    "enterCallbacks": {},
+    "components": {}
+  },
+  {
+    "path": "/file",
+    "name": "file",
+    "meta": {
+      "locale": "menu.file",
+      "icon": "icon-formula",
+      "requiresAuth": true,
+      "order": 8
+    },
+    "props": {
+      "default": false
+    },
+    "children": [
+      {
+        "path": "music",
+        "name": "Music",
+        "meta": {
+          "locale": "menu.file.music",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
+          ]
+        }
+      },
+      {
+        "path": "pic",
+        "name": "Pic",
+        "meta": {
+          "locale": "menu.file.pic",
+          "requiresAuth": true,
+          "roles": [
+            "admin"
           ]
         }
       }

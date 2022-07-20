@@ -13,7 +13,7 @@ class UserBase(BaseModel):
     # is_superuser: bool = False
     username: Optional[str] = None
     avatar: Optional[str] = None
-    phone: str = None
+    phone: Optional[str] = None
     registrationDate: datetime = None
     role: str = None
 

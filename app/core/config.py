@@ -120,5 +120,11 @@ class Settings(BaseSettings):
     ACTIVE_USERS_INFO: str = 'active_users_info'
     CHAT_HISTORY_KEY: str = 'chat_history'
 
+    # qiniu
+    QINIU_ACCESS_KEY: str
+    QINIU_SECRET_KEY: str
+    bucket_domain: str = 'qiniu.maktubtech.com'
+    bucket_name: str = 'maktubtech'
+
 
 settings = Settings()

@@ -8,11 +8,12 @@ from app import repository
 from app.api import deps
 from app.core import security
 from app.models import UserModel
-from app.schemas.user import InUser, OutUser
+from app.schemas.user import InUser, OutUser, UserBase
 from app.schemas.response import Response, STATUS
 from app.schemas.user_menu import UserMenuOut
 from app.services.db import get_db
 from app.services.redis import get_redis_conn
+from app.services import qiniu
 
 router = APIRouter()
 
@@ -53,6 +54,12 @@ async def get_user_info(current_user: UserModel = Depends(deps.get_current_user)
     # user_menus = traverse_menus(menu_list)
     # print(user_menus)
     return Response(status=STATUS.SUCCESS, info='get info successful', data=menu_list)
+
+
+@router.get('/logo')
+async def get_logo():
+    logo_url = qiniu.generate_access_url(file='miro/pics/logo.png')
+    return Response(status=STATUS.SUCCESS, info='get logo successful', data={'logoUrl': logo_url})
 
 
 def traverse_menus(menu_list: List[UserMenuOut]) -> List[UserMenuOut]:

@@ -45,7 +45,7 @@ def import_routes(db: Session):
 
 
 def init_superuser(db: Session):
-    user = repository.user_repo.get_by_email(db, email='233@qq.com')
+    user = repository.user_repo.get_by_email(db, email='zerkvii@gmail.com')
     if not user:
         user_in = schemas.UserCreate(
             # email=settings.FIRST_SUPERUSER,
@@ -59,7 +59,7 @@ def init_superuser(db: Session):
 
 
 def init_superuser_route(db: Session):
-    user = repository.user_repo.get_by_email(db, email='zerkvii@gmail.com')
+    user = repository.user_repo.get_by_email(db, email='233@qq.com')
     menus = repository.menu_repo.get_all_menus(db)
     if menus:
         order = 0
@@ -69,14 +69,17 @@ def init_superuser_route(db: Session):
             user_menu.user_id = user.id
             user_menu.menu_id = m.id
             user_menu.menu_order = order
-            if user_menu.children_ids != '':
-                user_menu.children_ids = ','.join([str(int(e) + 27) for e in user_menu.children_ids.split(',')])
+            if user_menu.children_ids != '' and user_menu.children_ids is not None:
+                print(user_menu.children_ids)
+                user_menu.children_ids = ','.join([str(int(e)) for e in user_menu.children_ids.split(',')])
             if str(m.name).islower():
                 user_menu.level = 1
             else:
                 user_menu.level = 2
             order += 1
-            repository.user_menu_repo.create(db, obj_in=user_menu)
+            u_m = repository.user_menu_repo.get_by_user_id_and_menu_id(db, user_id=user.id, menu_id=m.id)
+            if not u_m:
+                repository.user_menu_repo.create(db, obj_in=user_menu)
 
 
 def init_db(db: Session) -> None:
@@ -85,6 +88,6 @@ def init_db(db: Session) -> None:
     # the tables un-commenting the next line
     # Base.metadata.create_all(bind=engine)
 
-    # import_routes(db)
+    import_routes(db)
     init_superuser(db)
     init_superuser_route(db)

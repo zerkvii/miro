@@ -9,6 +9,10 @@ from app.schemas import UserMenuUpdate, UserMenuCreate
 
 
 class UserMenuRepo(RepoBase[UserMenuModel, UserMenuCreate, UserMenuUpdate]):
+    def get_by_user_id_and_menu_id(self, db: Session, *, user_id: int, menu_id: int) -> UserMenuModel:
+        return db.query(UserMenuModel).filter(UserMenuModel.user_id == user_id,
+                                              UserMenuModel.menu_id == menu_id).first()
+
     def get_by_user_id(self, db: Session, user_id: int) -> List[Dict[str, Any]]:
         query_string = text(
             'select m.name,m.path,m.meta,um.id,um.children_ids,um.level,um.menu_order from user_menu um left join '
